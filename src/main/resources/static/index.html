@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>POSTMAN</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#postBtn").click( function() {
+            $.ajax({
+                url: "mongo/v1/upsert_entry",
+                type: "POST",
+                data:  $("#req").val(),
+                dataType: "json",
+                beforeSend: function(xhr){xhr.setRequestHeader('collection-name', $("#collectionName").val());},
+                contentType: "application/json; charset=utf-8",
+                success: function(){
+                    alert("Data: " + data + "\nStatus: " + status);
+                }
+            });
+        });
+    });
+    </script>
+    <style>
+        textarea {
+            resize: none;
+        }
+        body {
+            font-family: arial
+        }
+    </style>
+</head>
+<body bgcolor="aliceblue">
+<h2>POSTMAN</h2>
+<center>
+<table border="0" >
+    <tr>
+        <td><label>Collection Name: </label></td>
+        <td>-</td>
+        <td><input type="text" id="collectionName" size="20" value="testCollection"> </td>
+    </tr>
+    <tr>
+        <td><textarea id="req" rows="30" cols="70" ></textarea></td>
+        <td><button id="postBtn">POST request</button></td>
+        <td><textarea id="resp" rows="30" cols="70"></textarea></td>
+    </tr>
+</table>
+</center>
+
+</body>
+</html>
